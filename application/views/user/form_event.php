@@ -1,13 +1,17 @@
+<?php echo validation_errors(); ?>
 <?php 
 if(isset($id)){ 
 	echo form_open('user/edit_event/'.$id);
 }else { 
 	echo form_open('user/add_event'); 
 } 
+
 ?>
 
 <div class="row">
+
         <div class="col-md-6">
+		
             
         
 

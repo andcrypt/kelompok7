@@ -5,7 +5,9 @@ class User extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-            $this->load->helper('url');
+			$this->load->helper('url','form');
+			$this->load->library('form_validation');
+			//$this->load->model('m_upload');
 
     }
 	/**
@@ -47,9 +49,10 @@ class User extends CI_Controller {
 	
 	}
 
-	//load 1 form untuk edit dan create
+	//load 1 form untuk edit dan create validasi
 	function form_event($id='')
 	{
+		$this->load->library('form_validation');
 		$data['event'] = '';
 		if($id != '')
 		{
@@ -57,14 +60,38 @@ class User extends CI_Controller {
 			 $data['id'] = $id;
 		
 		}
-	
-	   $this->load->view('user/header',null);
-	   $this->load->view('user/form_event',$data);
-	   $this->load->view('user/footer');
+		$this->form_validation->set_rules('nama_event','Nama','required');
+		$this->form_validation->set_rules('alamat','Alamat','required');
+		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
+		$this->form_validation->set_rules('id_event','Event','required');
+		$this->form_validation->set_rules('tanggal_mulai','Tanggal Mulai','required');
+		$this->form_validation->set_rules('tanggal_selesai','Tanggal Akhir','required');
+		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
+		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
+		$this->form_validation->set_rules('id_galeri','Galeri','required');
+ 
+		if($this->form_validation->run() != false){
+			echo "Form oke bos";
+		}else{
+			//$this->load->view('user/form_event');
+			$this->load->view('user/header',null);
+			$this->load->view('user/form_event',$data);
+			$this->load->view('user/footer');
+		
+		}	
+
 	}
+
+	public function validasi()
+	{
+		
+	
+	}
+
 
 	function add_event()
 {
+
     $data = $this->input->post();
     $add['nama_event'] = $data['nama_event'];
     $add['alamat'] = $data['alamat'];
@@ -75,6 +102,8 @@ class User extends CI_Controller {
 	$add['waktu_mulai'] = $data['waktu_mulai'];
 	$add['waktu_akhir'] = $data['waktu_akhir'];
 	$add['id_galeri'] = $data['galeri'];
+	
+	
 
     $this->db->insert('event',$add);
     redirect(base_url().'user/event');
@@ -106,4 +135,8 @@ function remove_event($id)
     }
    
 }
+
+	
+
+
 }
