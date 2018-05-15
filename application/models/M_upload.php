@@ -3,7 +3,7 @@ class M_upload extends CI_Model{
  
     function simpan_upload($judul,$tgl,$image){
         $data = array(
-                'nama_gambar' => $judul,
+                'nama_foto' => $judul,
                 'tanggal_upload' => $tgl,
                 'gambar' => $image
             );  

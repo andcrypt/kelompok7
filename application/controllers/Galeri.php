@@ -46,13 +46,14 @@ function do_upload(){
 		$data = array('upload_data' => $this->upload->data());
 
 		$judul= $this->input->post('judul');
-		$tgl= $this->input->post('tanggal_upload');
+		$tgl= $this->input->post('tgl');
 		$image= $data['upload_data']['file_name']; 
 		 
 		$result= $this->m_upload->simpan_upload($judul,$tgl,$image);
-		echo json_decode($result);
+		echo "success";
+	} else {
+		echo $this->upload->display_errors();
 	}
-
  }
 
 }
