@@ -37,4 +37,8 @@ class Homepage extends CI_Controller {
 	{
 		$this->load->view('homepage/registration');
 	}
+		public function login()
+	{
+		$this->load->view('homepage/login');
+	}
 }

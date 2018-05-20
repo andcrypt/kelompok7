@@ -28,4 +28,9 @@ class Registration extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('beranda/registration');
 	}
+	public function login()
+	{
+		$this->load->helper('url');
+		$this->load->view('beranda/login');
+	}
 }
