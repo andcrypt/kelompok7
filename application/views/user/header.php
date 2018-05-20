@@ -131,7 +131,7 @@
                         </a>
                     </li>
                      <li>
-                        <a href="<?php echo base_url().'admin/gallery' ?>">
+                        <a href="<?php echo base_url().'galeri' ?>">
                             <i class="material-icons">layers</i>
                             <span>Gallery</span>
                         </a>

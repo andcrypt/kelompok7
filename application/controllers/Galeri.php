@@ -29,11 +29,10 @@ class Galeri extends CI_Controller {
 	{
 	  $this->load->view('user/header');
 	  $this->load->view('user/form_upload');
-	  $this->load->view('user/footer');
-	
+	  $this->load->view('user/footer');	
 	}
 
-
+	
 
 	
 function do_upload(){
