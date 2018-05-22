@@ -30,13 +30,13 @@
              <?php echo $this->session->flashdata('msg'); ?>  
            </div>  
          </div>  
-         <form action="<?php echo base_url(); ?>user/registration" method="post">  
+         <?php echo form_open('user/login'); ?>
           <div class="row">  
            <div class="col-sm-12">  
             <div class="form-group">  
-                    <label class="control-label" for="fname">Username</label>  
+                    <label class="control-label" for="username">Username</label>  
                       <div >  
-                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Username" required=""></div>  
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required=""></div>  
                   </div>  
            </div>  
           </div>    
@@ -54,7 +54,7 @@
                     </div>  
                   </div>  
                 </div>  
-         </form>  
+                <?php echo form_close(); ?>
         </div>    
        </div>  
       </div>  

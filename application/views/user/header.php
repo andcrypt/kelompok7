@@ -85,7 +85,11 @@
                    
                     <li class="pull-right dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                     <ul class="dropdown-menu pull-right">
-                            <li><a href="<?php echo base_url().'masuk/keluar' ?>">Keluar</a></li>
+                            <li><?php if($this->session->userdata('logged_in')) : ?>
+        <?php echo anchor('user/logout', 'Logout', array('class' => 'btn btn-outline-light')); ?>
+        <?php endif; ?></li>
+                            
+
                             
                         </ul>
                     </li>
@@ -111,6 +115,7 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">Menu OK EVENT</li>
+
                     <li class="active">
                         <a href="<?php echo base_url().'admin' ?>">
                              <i class="material-icons">layers</i>
@@ -138,6 +143,7 @@
                     </li>
 
                     
+                    
                 
                 </ul>
             </div>
@@ -161,4 +167,14 @@
         <div class="container-fluid">
             
     
+        <?php if($this->session->flashdata('user_registered')): ?>
+         <?php echo '<div class="alert alert-success" role="alert">'.$this->session->flashdata('user_registered').'</div>'; ?>
+       <?php endif; ?>
 
+       <?php if($this->session->flashdata('login_failed')): ?>
+         <?php echo '<p class="alert alert-danger">'.$this->session->flashdata('login_failed').'</p>'; ?>
+       <?php endif; ?>
+
+        <?php if($this->session->flashdata('user_loggedout')): ?>
+         <?php echo '<p class="alert alert-success">'.$this->session->flashdata('user_loggedout').'</p>'; ?>
+       <?php endif; ?>
