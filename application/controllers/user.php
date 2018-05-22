@@ -7,24 +7,9 @@ class User extends CI_Controller {
         parent::__construct();
 			$this->load->helper('url','form');
 			$this->load->library('form_validation');
-			//$this->load->model('m_upload');
+			$this->load->model('user_model');
 
     }
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
 
 	public function index()
 	{
@@ -122,20 +107,34 @@ class User extends CI_Controller {
 
 	function edit_event($id)
 {
+	$this->load->library('form_validation');
+		$this->form_validation->set_rules('nama_event','Nama','required');
+		$this->form_validation->set_rules('alamat','Alamat','required');
+		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
+		$this->form_validation->set_rules('kategori','Kategori','required');
+		$this->form_validation->set_rules('tanggal_mulai','Tanggal Mulai','required');
+		$this->form_validation->set_rules('tanggal_selesai','Tanggal Akhir','required');
+		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
+		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
+		$this->form_validation->set_rules('id_galeri','Galeri','required');
 
-    $data = $this->input->post();
-    $add['nama_event'] = $data['nama_event'];
-    $add['alamat'] = $data['alamat'];
-    $add['deskripsi'] = $data['deskripsi'];
-	$add['id_event'] = $data['event'];
-	$add['tanggal_mulai'] = $data['tanggal_mulai'];
-    $add['tanggal_akhir'] = $data['tanggal_akhir'];
-	$add['waktu_mulai'] = $data['waktu_mulai'];
-	$add['waktu_akhir'] = $data['waktu_akhir'];
-	$add['id_galeri'] = $data['galeri'];
+		if($this->form_validation->run() != false){
+			$data = $this->input->post();
+			$add['nama_event'] = $data['nama_event'];
+			$add['alamat'] = $data['alamat'];
+			$add['deskripsi'] = $data['deskripsi'];
+			$add['id_event'] = $data['event'];
+			$add['tanggal_mulai'] = $data['tanggal_mulai'];
+			$add['tanggal_akhir'] = $data['tanggal_akhir'];
+			$add['waktu_mulai'] = $data['waktu_mulai'];
+			$add['waktu_akhir'] = $data['waktu_akhir'];
+			$add['id_galeri'] = $data['galeri'];
 
     $this->db->update('event',$add, array('id_event' => $id));
-    redirect(base_url().'user/event');
+	redirect(base_url().'user/event');
+	} else {
+	echo validation_errors();
+	}
 }
 
 function remove_event($id)
@@ -146,6 +145,34 @@ function remove_event($id)
     }
    
 }
+
+public function register(){
+    $data['page_title'] = 'Pendaftaran EO';
+
+    $this->form_validation->set_rules('nama', 'Nama', 'required');
+    $this->form_validation->set_rules('username', 'Username', 
+'required|is_unique[users.username]');
+    $this->form_validation->set_rules('email', 'Email', 
+'required|is_unique[users.email]');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+    $this->form_validation->set_rules('passwordkonfrim', 'Konfirmasi Password', 
+'matches[password]');
+
+if($this->form_validation->run() === FALSE){
+    $this->load->view('homepage/registration', $data);
+   
+} else {
+    // Encrypt password
+    $enc_password = md5($this->input->post('password'));
+
+    $this->user_model->register($enc_password);
+
+    $this->session->set_flashdata('user_registered', 'Anda udah teregistrasi.');
+
+    redirect('homepage/registration');
+        }
+    }
+
 
 	
 

@@ -26,7 +26,7 @@ class Registration extends CI_Controller {
 	public function registrasi()
 	{
 		$this->load->helper('url');
-		$this->load->view('beranda/registration');
+		$this->load->view('homepage/registration');
 	}
 	public function login()
 	{

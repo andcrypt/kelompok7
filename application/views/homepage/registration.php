@@ -30,32 +30,28 @@
              <?php echo $this->session->flashdata('msg'); ?>  
            </div>  
          </div>  
-         <form action="<?php echo base_url(); ?>user/registration" method="post">  
+<?php echo form_open('user/register', array('class' => 'needs-validation', 'novalidate' => '')); ?> 
           <div class="row">  
            <div class="col-sm-6">  
             <div class="form-group">  
-                    <label class="control-label" for="fname">First Name</label>  
+                    <label class="control-label" for="nama">Nama Lengkap</label>  
                       <div >  
-                        <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required="">  
-                        <span class="text-danger"><?php echo form_error('fname'); ?></span>  
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="First Name" required="">  
+                        <span class="text-danger"><?php echo form_error('nama'); ?></span>  
                       </div>  
                   </div>  
-           </div>  
-          <div class="col-sm-6">  
-           <div class="form-group">  
-                   <label class="control-label" for="fname">Last Name</label>  
-                      <div >  
-                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required="">  
-                        <span class="text-danger"><?php echo form_error('lame'); ?></span>  
-                      </div>  
-                  </div>  
-           </div>  
-          </div>  
           <div class="form-group">  
-                  <label class="control-label" for="pswd">Email</label>  
+                  <label class="control-label" for="email">Email</label>  
                     <div>  
                       <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="">  
                       <span class="text-danger"><?php echo form_error('email'); ?></span>  
+                    </div>  
+                </div> 
+                <div class="form-group">  
+                  <label class="control-label" for="username">Username</label>  
+                    <div>  
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" required="">  
+                      <span class="text-danger"><?php echo form_error('username'); ?></span>  
                     </div>  
                 </div>  
                 <div class="form-group">  
@@ -68,8 +64,8 @@
                 <div class="form-group">  
                   <label class="control-label" for="cn-pswd">Confirm Password</label>  
                     <div>  
-                      <input type="password" class="form-control" id="cn-pswd" name="confirmpswd" placeholder="Confirm Password" required="">  
-                      <span class="text-danger"><?php echo form_error('confirmpswd'); ?></span>  
+                      <input type="password" class="form-control" id="cn-pswd" name="passwordkonfrim" placeholder="Confirm Password" required="">  
+                      <span class="text-danger"><?php echo form_error('passwordkonfrim'); ?></span>  
                     </div>  
                 </div>  
                 <div class="form-group">   
@@ -79,15 +75,16 @@
                     </div>  
                   </div>  
                 </div>  
-         </form>  
+<?php echo form_close(); ?>  
         </div>    
        </div>  
       </div>  
      </div>  
     </div>  
-   </div>  
+   </div> 
+</div> 
    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
   </body>  
-  </html>
+  </html> 
