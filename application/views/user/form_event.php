@@ -28,43 +28,50 @@ if(isset($id)){
 
     <div>
 		<label>Deksripsi</label> 
-		<input type="text" name="deskripsi" id="deskripsi" value="<?php if(isset($id)){ echo $event['deskripsi']; } ?>"class="form-control form-sm" />
+		<textarea name="deskripsi" id="deskripsi" class="form-control form-sm"><?php if(isset($id)){ echo $event['deskripsi']; } ?></textarea>
 		
 	</div>
 
 	<div>
 		<label>Kategori</label> 
-		<input type="text" name="kategori" id="kategori" value="<?php if(isset($id)){ echo $event['id_kategori']; } ?>" class="form-control form-sm" />
+		<select name="kategori" id="kategori" class="form-control form-sm"> 
+		<option value="">-- Pilih Kategori --</option>
+		<?php
+			$kategori = $this->db->get('kategori')->result_array();
+			foreach ($kategori as $row) {
+		?>
+				<option value="<?php echo $row['id_kategori']; ?>" <?php if(isset($id)){ if($row['id_kategori'] == $event['id_kategori']){ echo "selected"; } } ?>><?php echo $row['nama_kategori']; ?></option>
+		<?php		
+			}
+		?>
+		
+		</select>
 		
 	</div>
 
 	<div>
 		<label>Tanggal Mulai</label> 
-		<input type="date" name="tanggal_mulai" id="tanggal_mulai" value="<?php if(isset($id)){ echo $event['tanggal_mulai']; } ?>" class="form-control form-sm" />
+		<input type="text" name="tanggal_mulai" id="tanggal_mulai" value="<?php if(isset($id)){ echo $event['tanggal_mulai']; } ?>" class="datepicker form-control form-sm" />
 		
 	</div>
 
 	<div>
 		<label>Tanggal Akhir</label> 
-		<input type="date" name="tanggal_akhir" id="tanggal_akhir" value="<?php if(isset($id)){ echo $event['tanggal_selesai']; } ?>" class="form-control form-sm" />
+		<input type="text" name="tanggal_akhir"  id="tanggal_akhir" value="<?php if(isset($id)){ echo $event['tanggal_selesai']; } ?>" class="datepicker form-control form-sm" />
 	</div>
 
 	<div>
 		<label>Waktu Mulai</label> 
-		<input type="text" name="waktu_mulai" id="waktu_mulai" value="<?php if(isset($id)){ echo $event['waktu_mulai']; } ?>" class="form-control form-sm" />
+		<input type="time" name="waktu_mulai" id="waktu_mulai" value="<?php if(isset($id)){ echo $event['waktu_mulai']; } ?>" class="timepicker form-control form-sm" data-time-format="H:i:s" />
 		
 	</div>
 
 	<div>
 		<label>Waktu Akhir</label> 
-		<input type="text" name="waktu_akhir" id="waktu_akhir" value="<?php if(isset($id)){ echo $event['waktu_akhir']; } ?>" class="form-control form-sm" />
+		<input type="time" name="waktu_akhir" id="waktu_akhir" value="<?php if(isset($id)){ echo $event['waktu_akhir']; } ?>" class="form-control form-sm" />
 	</div>
 
-	<div>
-		<label>Galeri</label> 
-		<input type="text" name="galeri" id="galeri" value="<?php if(isset($id)){ echo $event['id_galeri']; } ?>" class="form-control form-sm" />
-	</div>
-
+	
 
 		<div class="col-md-12" style="margin-bottom: 20px;padding-top: 30px;text-align: center;">
 			<center>

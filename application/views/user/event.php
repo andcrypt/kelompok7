@@ -39,7 +39,6 @@
                                 <th>Tanggal Akhir</th>
                                 <th>Waktu Mulai</th>
                                 <th>Waktu Akhir</th>
-                                <th>Galeri</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -57,7 +56,7 @@
                                 <td><?php echo $a['tanggal_selesai']; ?></td>
                                 <td><?php echo $a['waktu_mulai']; ?></td>
                                 <td><?php echo $a['waktu_akhir']; ?></td>
-                                <td><?php echo $a['id_galeri']; ?></td>
+                               
                                 
                                
                                

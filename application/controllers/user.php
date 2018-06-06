@@ -46,7 +46,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('tanggal_selesai','Tanggal Akhir','required');
 		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
 		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
-		$this->form_validation->set_rules('id_galeri','Galeri','required');
+		//$this->form_validation->set_rules('id_galeri','Galeri','required');
  
 		if($this->form_validation->run() != false){
 			echo "Form oke bos";
@@ -81,10 +81,10 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
 		$this->form_validation->set_rules('kategori','Kategori','required');
 		$this->form_validation->set_rules('tanggal_mulai','Tanggal Mulai','required');
-		$this->form_validation->set_rules('tanggal_selesai','Tanggal Akhir','required');
+		$this->form_validation->set_rules('tanggal_akhir','Tanggal Akhir','required');
 		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
 		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
-		$this->form_validation->set_rules('id_galeri','Galeri','required');
+		//$this->form_validation->set_rules('galeri','Galeri','required');
  
 		if($this->form_validation->run() != false){
 			$data = $this->input->post();
@@ -92,11 +92,11 @@ class User extends CI_Controller {
 			$add['alamat'] = $data['alamat'];
 			$add['deskripsi'] = $data['deskripsi'];
 			$add['id_kategori'] = $data['kategori'];
-			$add['tanggal_mulai'] = $data['tanggal_mulai'];
-			$add['tanggal_selesai'] = $data['tanggal_akhir'];
+			$add['tanggal_mulai'] = date('Y-m-d' , strtotime($data['tanggal_mulai']));
+			$add['tanggal_selesai'] = date('Y-m-d' , strtotime($data['tanggal_akhir']));
 			$add['waktu_mulai'] = $data['waktu_mulai'];
 			$add['waktu_akhir'] = $data['waktu_akhir'];
-			$add['id_galeri'] = $data['galeri'];
+			//$add['id_galeri'] = $data['galeri'];
 	
 			$this->db->insert('event',$add);
 			redirect(base_url().'user/event');
@@ -116,7 +116,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('tanggal_selesai','Tanggal Akhir','required');
 		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
 		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
-		$this->form_validation->set_rules('id_galeri','Galeri','required');
+		//$this->form_validation->set_rules('id_galeri','Galeri','required');
 
 		if($this->form_validation->run() != false){
 			$data = $this->input->post();
@@ -128,7 +128,7 @@ class User extends CI_Controller {
 			$add['tanggal_akhir'] = $data['tanggal_akhir'];
 			$add['waktu_mulai'] = $data['waktu_mulai'];
 			$add['waktu_akhir'] = $data['waktu_akhir'];
-			$add['id_galeri'] = $data['galeri'];
+			//$add['id_galeri'] = $data['galeri'];
 
     $this->db->update('event',$add, array('id_event' => $id));
 	redirect(base_url().'user/event');
@@ -144,6 +144,11 @@ function remove_event($id)
          redirect(base_url().'user/event');
     }
    
+}
+
+public function cek()
+{
+	var_dump($_SESSION);
 }
 
 public function register(){
@@ -187,13 +192,14 @@ if($this->form_validation->run() === FALSE){
     $password = md5($this->input->post('password'));
 
     // Login user
-    $id_user = $this->user_model->login($username, $password);
+    $user = $this->user_model->login($username, $password);
 
-    if($id_user){
+    if($user){
         // Buat session
         $user_data = array(
-            'id_user' => $id_user,
-            'username' => $username,
+            'id_user' => $user['id_user'],
+			'username' => $username,
+			'level' => $user['level'],
             'logged_in' => true
 		);
 		$this->session->set_userdata($user_data);

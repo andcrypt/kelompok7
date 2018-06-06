@@ -40,7 +40,7 @@ public function login($username, $password){
 
 
         if($result->num_rows() == 1){
-            return $result->row(0)->id_user;
+            return $result->row_array();
         } else {
             return false;
         }

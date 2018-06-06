@@ -33,6 +33,14 @@
      <link href="<?php echo base_url().'admin_assets/plugins/bootstrap-select/css/bootstrap-select.css'; ?>" rel="stylesheet" />
 
       <script src="<?php echo base_url().'admin_assets/plugins/jquery/jquery.min.js'?>"></script>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+  $( function() {
+    $( ".datepicker" ).datepicker();
+  } );
+  </script>
 </head>
 
 <body class="theme-red">
@@ -141,6 +149,14 @@
                             <span>Gallery</span>
                         </a>
                     </li>
+                    <?php if($this->session->userdata('level') == 1){ ?>
+                      <li>
+                        <a href="<?php echo base_url().'galeri' ?>">
+                            <i class="material-icons">layers</i>
+                            <span>User</span>
+                        </a>
+                    </li>
+                    <?php } ?>
 
                     
                     
