@@ -231,5 +231,21 @@ public function logout(){
 
 	
 
+public function user()
+{
+  $this->load->view('user/header');
+  $this->load->view('user/form_user');
+  $this->load->view('user/footer');
+
+}
+
+public function eo()
+{
+  $this->load->view('user/header');
+  $this->load->view('user/eo');
+  $this->load->view('user/footer');
+
+}
+
 
 }

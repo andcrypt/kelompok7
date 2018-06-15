@@ -137,12 +137,14 @@
                             <span>Event</span>
                         </a>
                     </li>
+                    <?php if($this->session->userdata('level') == 1){ ?>
                     <li>
                         <a href="<?php echo base_url().'kategori/kategori' ?>">
                             <i class="material-icons">layers</i>
                             <span>Kategori</span>
                         </a>
                     </li>
+                    <?php } ?>
                      <li>
                         <a href="<?php echo base_url().'galeri' ?>">
                             <i class="material-icons">layers</i>
@@ -151,7 +153,7 @@
                     </li>
                     <?php if($this->session->userdata('level') == 1){ ?>
                       <li>
-                        <a href="<?php echo base_url().'galeri' ?>">
+                        <a href="<?php echo base_url().'user/user' ?>">
                             <i class="material-icons">layers</i>
                             <span>User</span>
                         </a>
