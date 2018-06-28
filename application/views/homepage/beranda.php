@@ -75,14 +75,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                             <nav>
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="index.html">Home</a></li>
+                                    <!--                                     <li class="active"><a href="index.html">Home</a></li> -->
                                     <li><a href="#about" class="scroll">About</a></li>
                                     <li><a href="#events" class="scroll">Category</a></li>
                                     <li><a href="#news" class="scroll">Event</a></li>                                    
                                     <!-- <li><a href="#team" class="scroll">Team</a></li> -->
                                     <li><a href="#mail" class="scroll">Contact Us</a></li>
+                                    
                                     <li class="active"><a href="<?php echo base_url('homepage/registrasi') ?>">Registration</a></li>
-                                    <li class="active"><a href="">Login</a></li>
+                                    <?php if ($this->session->userdata('logged_in') == null): ?>
+
+                                        <li class="active"><a href="<?php echo base_url('homepage/login') ?>">Login</a></li>
+                                    <?php else: ?>
+
+                                        <li class="active"><a href="<?php echo base_url('user/logout') ?>">Logout</a></li>
+                                    <?php endif ?>
                                 </ul>
                             </nav>
                         </div>
@@ -104,7 +111,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
     <!-- //banner -->
     <!-- introduction -->
-    <div class="introduction" id="indro">
+<!--     <div class="introduction" id="indro">
         <div class="container">
             <div class="w3l-heading">
                 <h3>Introduction</h3>
@@ -114,7 +121,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus iaculis lacus in pharetra. Morbi tincidunt nisi et bibendum varius. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin vulputate arcu consequat enim vulputate posuere. Aenean malesuada quam vitae mi ullamcorper, vel lobortis risus rutrum.</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- //introduction -->
     <!-- about -->
     <div class="about" id="about">
@@ -182,47 +189,50 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="gallery" id="events">
         <div class="container">
             <div class="w3l-heading">
-                <h3>Our CATEGORY</h3>
-                <div class="w3ls-border"> </div>
-            </div>
-            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                <div class="w3_tab_img">
-                    <?php foreach ($galeri as $key => $value): ?>
-                        <div class="col-sm-3 w3_tab_img_left">
-                            <div class="demo">
-                                <a class="cm-overlay" href="#">
-                                  <figure class="imghvr-shutter-in-out-diag-2">
-                                    <img src="<?php echo base_url() ?>assets/images/<?php echo $value['gambar'] ?>" alt=" " class="img-responsive" width=500 height=500/>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="agile-gallery-info">
-                            <h5><?php echo $value['nama_foto'] ?></h5>
-                            <p>--Desc--</p>
-                        </div>
-                    </div>
-                <?php endforeach ?>
-                <div class="clearfix">
-                </div>
+                <h3>Our GALERI</h3>
+                <div class="w3ls-border">
 
+              </div>
+          </div>
+
+          <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div class="w3_tab_img">
+                <?php foreach ($galeri as $key => $value): ?>
+                    <div class="col-sm-3 w3_tab_img_left">
+                        <div class="demo">
+                            <a class="cm-overlay" href="<?php echo base_url('homepage/pesan/'.$value['id_galeri']) ?>">
+                              <figure class="imghvr-shutter-in-out-diag-2">
+                                <img src="<?php echo base_url() ?>assets/images/<?php echo $value['gambar'] ?>" alt=" " class="img-responsive" width=500 height=500/>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="agile-gallery-info">
+                        <h5><?php echo $value['nama_foto'] ?></h5>
+                        <p>--Desc--</p>
+                    </div>
+                </div>
+            <?php endforeach ?>
+            <div class="clearfix">
             </div>
-            <div class="col-12 text-center">
-                <?php
-                    if (isset($links)) {
-                        echo $links;
-                    }
-                    ?>
-            </div>
+
         </div>
-        <script src="<?php echo base_url() ?>assets/js/jquery.tools.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/js/jquery.mobile.custom.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/js/jquery.cm-overlay.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('.cm-overlay').cmOverlay();
-            });
-        </script>
+        <div class="col-12 text-center">
+            <?php
+            if (isset($links)) {
+                echo $links;
+            }
+            ?>
+        </div>
     </div>
+    <script src="<?php echo base_url() ?>assets/js/jquery.tools.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery.mobile.custom.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery.cm-overlay.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.cm-overlay').cmOverlay();
+        });
+    </script>
+</div>
 </div>
 
     <!--TEAM <- Aktifkan <a href="#team" class="scroll">Team</a></li>>
@@ -303,72 +313,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="w3l-heading">
             <h3>Our Event</h3>
-            <div class="w3ls-border"> </div>
+            <div class="w3ls-border">
+                <ul class="nav nav-pills">
+                      <?php foreach ($kategori as $key => $value): ?>
+                        <li role="presentation"><a href="#"><?php echo $value->nama_kategori ?></a></li>
+                      <?php endforeach ?>
+                  </ul>
+            </div>
         </div>
         <div class="wthree-news-grids">
             <!-- date -->
             <div id="design" class="date">
                 <div id="cycler">   
-                    <div class="wthree-news-grid">
-                        <div class="wthree-news-left">
-                            <h4>03 <span>Jan 2017</span></h4>
+                    <?php foreach ($event as $key => $value): ?>
+                        <div class="wthree-news-grid">
+                            <div class="wthree-news-left">
+                                <h4><?php echo date('d',strtotime($value->tanggal_mulai)) ?> <span><?php echo date('M y',strtotime($value->tanggal_mulai)); ?></span></h4>
+                            </div>
+                            <div class="date-text">
+                                <a href="<?php echo base_url('Homepage/pesan/'.$value->id_event) ?>" data-toggle="modal" data-target="#myModal"> <?php echo $value->nama_event ?></a>
+                                <p><?php echo $value->deskripsi ?>.</p>
+                            </div>
+                            <div class="clearfix"> </div>
                         </div>
-                        <div class="date-text">
-                            <a href="#" data-toggle="modal" data-target="#myModal"> Lorem ipsum dolor sit amet</a>
-                            <p>Morbi felis sapien, pulvinar quis pharetra rutrum, auctor sit amet ipsum. Aliquam dictum massa ut porttitor ultricies. Duis non enim eros. Aliquam sed porttitor lectus.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="wthree-news-grid">
-                        <div class="wthree-news-left">
-                            <h4>08 <span>Sept 2017</span></h4>
-                        </div>
-                        <div class="date-text">
-                            <a href="#" data-toggle="modal" data-target="#myModal"> Cras vestibulum dapibus <span class="blinking"><img src="assets/images/new.png" alt="" /></span></a>
-                            <p>Curabitur egestas porttitor erat quis cursus. Aliquam nec sapien urna. Curabitur tincidunt dolor sed metus maximus dapibus. Integer ligula enim, condimentum id commodo eget</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="wthree-news-grid">
-                        <div class="wthree-news-left">
-                            <h4>17 <span>July 2017</span></h4>
-                        </div>
-                        <div class="date-text">
-                            <a href="#" data-toggle="modal" data-target="#myModal"> Fusce id molestie mauris</a>
-                            <p>Cras blandit felis augue, nec faucibus lectus hendrerit vitae. Vestibulum rutrum, magna id pellentesque fermentum, est risus scelerisque leo, at consequat nunc sem non tortor.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="wthree-news-grid">
-                        <div class="wthree-news-left">
-                            <h4>15 <span>Aug 2017</span></h4>
-                        </div>
-                        <div class="date-text">
-                            <a href="#" data-toggle="modal" data-target="#myModal"> Aliquam vulputate arcu enim <span class="blinking"><img src="assets/images/new.png" alt="" /></span></a>
-                            <p>Aliquam sed porttitor lectus. Donec sagittis magna non eros convallis, dapibus iaculis nunc tincidunt. Pellentesque quam nisi, cursus non vestibulum ac, vehicula eu tortor.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="wthree-news-grid">
-                        <div class="wthree-news-left">
-                            <h4>24 <span>Sept 2017</span></h4>
-                        </div>
-                        <div class="date-text">
-                            <a href="#" data-toggle="modal" data-target="#myModal"> Donec ac turpis aliquet</a>
-                            <p>Curabitur facilisis fermentum gravida. Nunc suscipit nec enim ut suscipit. Mauris mollis lectus at mi vehicula rutrum vel non dolor. Nulla ut purus arcu. Pellentesque sed finibus</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="wthree-news-grid">
-                        <div class="wthree-news-left">
-                            <h4>24 <span>Oct 2017</span></h4>
-                        </div>
-                        <div class="date-text">
-                            <a href="#" data-toggle="modal" data-target="#myModal"> Morbi nec justo ut ex rhoncus luctus</a>
-                            <p>Nullam accumsan imperdiet elementum. Quisque volutpat sapien sed ipsum condimentum elementum. Suspendisse potenti. Maecenas fermentum justo sit amet interdum viverra.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
+                    <?php endforeach ?>
                 </div>                      
                 <script>
                     function blinker() {
@@ -433,9 +401,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                 </div>  
                 <div class="address-info">
-                    <p>Eiusmod Tempor inc<br>
-                        St Dolore Place,<br>
-                        Kingsport 56777.
+                    <p>Indonesian<br>
+                        St Soekarno-Hatta,<br>
+                        Malang 617311.
                     </p>
                 </div>
                 <div class="clearfix"> </div>
@@ -445,8 +413,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>  
                 <div class="address-info">
-                    <p>+1 234 567 8901<br>
-                    +1 345 678 9012</p>
+                    <p>+62 822 2161 4411<br>
+                    +62 815 1524 5655</p>
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -455,7 +423,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                 </div>  
                 <div class="address-info">
-                    <p><a href="mailto:example@email.com">mail@example.com</a></p>
+                    <p><a href="mailto:example@email.com">nyikdewo@gmail.com</a></p>
                 </div>
                 <div class="clearfix"> </div>
             </div>

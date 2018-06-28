@@ -3,20 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 	function __construct()
-    {
-        parent::__construct();
-			$this->load->helper('url','form');
-			$this->load->library('form_validation');
-			$this->load->model('user_model');
+	{
+		parent::__construct();
+		$this->load->helper('url','form');
+		$this->load->library('form_validation');
+		$this->load->model('user_model');
 
-    }
+	}
 
 	public function index()
 	{
-	  $this->load->view('user/header');
-	  $this->load->view('user/home');
-	  $this->load->view('user/footer');
-	
+		$this->load->view('user/header');
+		$this->load->view('user/home');
+		$this->load->view('user/footer');
+
 	}
 
 	//load event
@@ -28,10 +28,10 @@ class User extends CI_Controller {
 		$data = array(
 			'event' => $event,
 		);
-	  $this->load->view('user/header');
-	  $this->load->view('user/event',$data);
-	  $this->load->view('user/footer');
-	
+		$this->load->view('user/header');
+		$this->load->view('user/event',$data);
+		$this->load->view('user/footer');
+
 	}
 
 	//load 1 form untuk edit dan create validasi
@@ -47,7 +47,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
 		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
 		//$this->form_validation->set_rules('id_galeri','Galeri','required');
- 
+
 		if($this->form_validation->run() != false){
 			echo "Form oke bos";
 		}else{
@@ -57,12 +57,12 @@ class User extends CI_Controller {
 			{
 				$data['event'] = $this->db->get_where('event',array('id_event'=>$id))->row_array();
 				$data['id'] = $id;
-			
+
 			}
 			$this->load->view('user/header',null);
 			$this->load->view('user/form_event',$data);
 			$this->load->view('user/footer');
-		
+
 		}	
 
 	}
@@ -70,7 +70,7 @@ class User extends CI_Controller {
 	public function validasi()
 	{
 		
-	
+
 	}
 
 
@@ -85,7 +85,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('waktu_mulai','Waktu Mulai','required');
 		$this->form_validation->set_rules('waktu_akhir','Waktu Selesai','required');
 		//$this->form_validation->set_rules('galeri','Galeri','required');
- 
+
 		if($this->form_validation->run() != false){
 			$data = $this->input->post();
 			$add['nama_event'] = $data['nama_event'];
@@ -97,7 +97,7 @@ class User extends CI_Controller {
 			$add['waktu_mulai'] = $data['waktu_mulai'];
 			$add['waktu_akhir'] = $data['waktu_akhir'];
 			//$add['id_galeri'] = $data['galeri'];
-	
+
 			$this->db->insert('event',$add);
 			redirect(base_url().'user/event');
 		} else {
@@ -106,8 +106,8 @@ class User extends CI_Controller {
 	}
 
 	function edit_event($id)
-{
-	$this->load->library('form_validation');
+	{
+		$this->load->library('form_validation');
 		$this->form_validation->set_rules('nama_event','Nama','required');
 		$this->form_validation->set_rules('alamat','Alamat','required');
 		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
@@ -130,122 +130,125 @@ class User extends CI_Controller {
 			$add['waktu_akhir'] = $data['waktu_akhir'];
 			//$add['id_galeri'] = $data['galeri'];
 
-    $this->db->update('event',$add, array('id_event' => $id));
-	redirect(base_url().'user/event');
-	} else {
-	echo validation_errors();
+			$this->db->update('event',$add, array('id_event' => $id));
+			redirect(base_url().'user/event');
+		} else {
+			echo validation_errors();
+		}
 	}
-}
 
-function remove_event($id)
-{
-    if($this->db->delete('event',array('id_event' => $id)))
-    {
-         redirect(base_url().'user/event');
-    }
-   
-}
+	function remove_event($id)
+	{
+		if($this->db->delete('event',array('id_event' => $id)))
+		{
+			redirect(base_url().'user/event');
+		}
 
-public function cek()
-{
-	var_dump($_SESSION);
-}
+	}
 
-public function register(){
-    $data['page_title'] = 'Pendaftaran EO';
+	public function cek()
+	{
+		var_dump($_SESSION);
+	}
 
-    $this->form_validation->set_rules('nama', 'Nama', 'required');
-    $this->form_validation->set_rules('username', 'Username', 
-'required|is_unique[users.username]');
-    $this->form_validation->set_rules('email', 'Email', 
-'required|is_unique[users.email]');
-    $this->form_validation->set_rules('password', 'Password', 'required');
-    $this->form_validation->set_rules('passwordkonfrim', 'Konfirmasi Password', 
-'matches[password]');
+	public function register(){
+		$data['page_title'] = 'Pendaftaran EO';
 
-if($this->form_validation->run() === FALSE){
-    $this->load->view('homepage/registration', $data);
-   
-} else {
-    // Encrypt password
-    $enc_password = md5($this->input->post('password'));
+		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('username', 'Username', 
+			'required|is_unique[users.username]');
+		$this->form_validation->set_rules('email', 'Email', 
+			'required|is_unique[users.email]');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('passwordkonfrim', 'Konfirmasi Password', 
+			'matches[password]');
 
-    $this->user_model->register($enc_password);
+		if($this->form_validation->run() === FALSE){
+			$this->load->view('homepage/registration', $data);
 
-    $this->session->set_flashdata('user_registered', 'Anda udah teregistrasi.');
+		} else {
+    		$enc_password = md5($this->input->post('password'));
 
-    redirect('homepage/registration');
-        }
-    }
+			$this->user_model->register($enc_password);
+
+			$this->session->set_flashdata('msg', 'Anda udah teregistrasi.');
+
+			redirect('homepage/registrasi');
+		}
+	}
 
 	public function login(){
-        $data['page_title'] = 'Log In';
+		$data['page_title'] = 'Log In';
 
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
 
-        if($this->form_validation->run() === FALSE){
-            $this->load->view('homepage/login', $data);
-        } else {
+		if($this->form_validation->run() === FALSE){
+			$this->load->view('homepage/login', $data);
+		} else {
 			$username = $this->input->post('username');
     // Get & encrypt password
-    $password = md5($this->input->post('password'));
+			$password = md5($this->input->post('password'));
 
     // Login user
-    $user = $this->user_model->login($username, $password);
+			$user = $this->user_model->login($username, $password);
 
-    if($user){
+			if($user){
         // Buat session
-        $user_data = array(
-            'id_user' => $user['id_user'],
-			'username' => $username,
-			'level' => $user['level'],
-            'logged_in' => true
-		);
-		$this->session->set_userdata($user_data);
+				$user_data = array(
+					'id_user' => $user['id_user'],
+					'username' => $username,
+					'level' => $user['level'],
+					'logged_in' => true
+				);
+				$this->session->set_userdata($user_data);
 
         // Set message
-        $this->session->set_flashdata('user_loggedin', 'You are now logged in');
+				$this->session->set_flashdata('user_loggedin', 'You are now logged in');
 
-        redirect('user');
-    } else {
+				if ($user_data['level'] == '1') {
+					redirect('user');
+				}else{
+					redirect('homepage');
+				}
+			} else {
         // Set message
-        $this->session->set_flashdata('login_failed', 'Login is invalid');
+				$this->session->set_flashdata('login_failed', 'Login is invalid');
 
-        redirect('user/login');
-    }       
-}
-}
+				redirect('user/login');
+			}       
+		}
+	}
 
-public function logout(){
+	public function logout(){
 	// Unset user data
-	$this->session->unset_userdata('logged_in');
-	$this->session->unset_userdata('id_user');
-	$this->session->unset_userdata('username');
+		$this->session->unset_userdata('logged_in');
+		$this->session->unset_userdata('id_user');
+		$this->session->unset_userdata('username');
 
 	// Set message
-	$this->session->set_flashdata('user_loggedout', 'Anda sudah log out');
+		$this->session->set_flashdata('user_loggedout', 'Anda sudah log out');
 
-	redirect('user/login');
-}
+		redirect('user/login');
+	}
 
 	
 
-public function user()
-{
-  $this->load->view('user/header');
-  $this->load->view('user/form_user');
-  $this->load->view('user/footer');
+	public function user()
+	{
+		$this->load->view('user/header');
+		$this->load->view('user/form_user');
+		$this->load->view('user/footer');
 
-}
+	}
 
-public function eo()
-{
-  $this->load->view('user/header');
-  $this->load->view('user/eo');
-  $this->load->view('user/footer');
+	public function eo()
+	{
+		$this->load->view('user/header');
+		$this->load->view('user/eo');
+		$this->load->view('user/footer');
 
-}
+	}
 
 
 }

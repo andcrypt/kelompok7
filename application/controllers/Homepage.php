@@ -30,15 +30,20 @@ class Homepage extends CI_Controller {
 
 			$data["links"] = $this->pagination->create_links();
 		}
-
+		$data['kategori'] = $this->db->get('kategori')->result();
+		$data['event'] = $this->db->order_by('tanggal_mulai')->get('event')->result();
 		$this->load->view('homepage/beranda',$data);
 	}
 	public function registrasi()
 	{
 		$this->load->view('homepage/registration');
 	}
-		public function login()
+	public function login()
 	{
 		$this->load->view('homepage/login');
+	}
+	public function pesan($id)
+	{
+		$this->load->view('homepage/pesan');
 	}
 }
