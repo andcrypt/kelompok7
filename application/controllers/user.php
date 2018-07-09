@@ -178,6 +178,13 @@ class User extends CI_Controller {
 	}
 
 	public function login(){
+
+		if(isset($_SESSION['id_user']))
+		{
+			
+			redirect(base_url().'user','refresh');
+			
+		}
 		$data['page_title'] = 'Log In';
 
 		$this->form_validation->set_rules('username', 'Username', 'required');
