@@ -56,7 +56,7 @@ class Galeri extends CI_Controller {
 			$data = array('upload_data' => $this->upload->data());
 
 			$judul= $this->input->post('judul');
-			$tgl= $this->input->post('tgl');
+			$tgl= date('Y-m-d');
 			$image= $data['upload_data']['file_name']; 
 
 			$result= $this->m_upload->simpan_upload($judul,$tgl,$image);
