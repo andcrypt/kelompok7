@@ -13,6 +13,9 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+		if($this->session->userdata('level') == 3 ){
+			redirect("homepage");
+		}
 		$this->load->view('user/header');
 		$this->load->view('user/home');
 		$this->load->view('user/footer');
@@ -24,6 +27,9 @@ class User extends CI_Controller {
 	{
 		$this->db->order_by('id_event', 'desc');
 
+		if($this->session->userdata('level') != 1){
+			$this->db->where('id_user',$this->session->userdata('id_user'));
+		}
 		$event =  $this->db->get('event')->result_array();
 		$data = array(
 			'event' => $event,
@@ -97,7 +103,7 @@ class User extends CI_Controller {
 			$add['waktu_mulai'] = $data['waktu_mulai'];
 			$add['waktu_akhir'] = $data['waktu_akhir'];
 			//$add['id_galeri'] = $data['galeri'];
-
+			$add['id_user'] = $this->session->userdata('id_user');
 			$this->db->insert('event',$add);
 			redirect(base_url().'user/event');
 		} else {
@@ -243,8 +249,9 @@ class User extends CI_Controller {
 
 	public function user()
 	{
+		$data['user'] = $this->db->get('users')->result();
 		$this->load->view('user/header');
-		$this->load->view('user/form_user');
+		$this->load->view('user/form_user',$data);
 		$this->load->view('user/footer');
 
 	}

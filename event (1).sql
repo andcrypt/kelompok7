@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2018 at 06:02 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- Generation Time: Jul 21, 2018 at 06:16 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -36,6 +38,19 @@ CREATE TABLE `admin` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `eo`
+--
+
+CREATE TABLE `eo` (
+  `id_eo` int(11) NOT NULL,
+  `nama_eo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `event`
 --
 
@@ -49,7 +64,6 @@ CREATE TABLE `event` (
   `tanggal_selesai` date NOT NULL,
   `waktu_mulai` time NOT NULL,
   `waktu_akhir` time NOT NULL,
-  `id_galeri` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -57,13 +71,12 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`id_event`, `nama_event`, `alamat`, `deskripsi`, `id_kategori`, `tanggal_mulai`, `tanggal_selesai`, `waktu_mulai`, `waktu_akhir`, `id_galeri`, `id_user`) VALUES
-(1, 'kcopdkocl', 'vkldvkmkd', 'vflvmkf', 1, '2018-05-17', '2018-05-12', '08:00:00', '10:00:00', 3, 0),
-(2, 'kk', '', '', 0, '0000-00-00', '0000-00-00', '00:00:00', '00:00:00', 0, 0),
-(3, '', '', '', 0, '0000-00-00', '0000-00-00', '00:00:00', '00:00:00', 0, 0),
-(4, '', '', '', 0, '0000-00-00', '0000-00-00', '00:00:00', '00:00:00', 0, 0),
-(6, '', '', '', 0, '0000-00-00', '0000-00-00', '00:00:00', '00:00:00', 0, 0),
-(7, '', '', '', 0, '0000-00-00', '0000-00-00', '00:00:00', '00:00:00', 0, 0);
+INSERT INTO `event` (`id_event`, `nama_event`, `alamat`, `deskripsi`, `id_kategori`, `tanggal_mulai`, `tanggal_selesai`, `waktu_mulai`, `waktu_akhir`, `id_user`) VALUES
+(1, 'kcopdkocl', 'vkldvkmkd', 'vflvmkf', 1, '2018-05-17', '2018-05-12', '08:00:00', '10:00:00', 0),
+(2, 'kk', '', '', 0, '0000-00-00', '0000-00-00', '00:00:00', '00:00:00', 0),
+(3, 'ff', 'rr', 'hhm ', 2, '0000-00-00', '0000-00-00', '02:59:00', '13:59:00', 0),
+(4, 'vcx', 'vdcdx', 'sds', 2, '2018-06-06', '2018-06-07', '12:59:00', '13:59:00', 0),
+(5, 'qwe', 'qwe', 'qwe', 2, '2018-07-03', '2018-07-12', '03:02:00', '05:00:00', 5);
 
 -- --------------------------------------------------------
 
@@ -75,16 +88,19 @@ CREATE TABLE `galeri` (
   `id_galeri` int(11) NOT NULL,
   `nama_foto` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_upload` date NOT NULL,
-  `gambar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
+  `gambar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `galeri`
 --
 
-INSERT INTO `galeri` (`id_galeri`, `nama_foto`, `tanggal_upload`, `gambar`) VALUES
-(1, 'aa', '2018-05-02', 'b6dd3f607b68e4e3ca8619edba848e90.png'),
-(2, 'hh', '2018-05-12', '466dd9ab071c5533e86315dd092a484e.png');
+INSERT INTO `galeri` (`id_galeri`, `nama_foto`, `tanggal_upload`, `gambar`, `id_user`) VALUES
+(1, 'aa', '2018-05-02', 'b6dd3f607b68e4e3ca8619edba848e90.png', 0),
+(2, 'hh', '2018-05-12', '466dd9ab071c5533e86315dd092a484e.png', 0),
+(3, '1', '2018-07-21', '6b4fa12b7be32015d97909ca5f0a3ad6.jpg', 0),
+(4, '123', '2018-07-21', 'f57a0f8ebf445ad5fd0766eeb35bf1aa.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -125,16 +141,26 @@ CREATE TABLE `transaksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
-  `nama_user` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `nama`, `username`, `email`, `password`, `level`) VALUES
+(4, 'admin', 'admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1),
+(12, '123', '321', 'asd@gmail.com', 'caf1a3dfb505ffed0d024130f58c5cfa', 3),
+(13, 'qwe', '333', 'babakuduayik@yahoo.com', '310dcbbf4cce62f762a2aaa148d556bd', 2);
 
 --
 -- Indexes for dumped tables
@@ -145,6 +171,12 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`);
+
+--
+-- Indexes for table `eo`
+--
+ALTER TABLE `eo`
+  ADD PRIMARY KEY (`id_eo`);
 
 --
 -- Indexes for table `event`
@@ -171,9 +203,9 @@ ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
 
 --
@@ -185,31 +217,44 @@ ALTER TABLE `user`
 --
 ALTER TABLE `admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `eo`
+--
+ALTER TABLE `eo`
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
   MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

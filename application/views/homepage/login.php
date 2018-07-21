@@ -49,8 +49,11 @@
                 </div>    
                 <div class="form-group">   
                   <div class="row">  
-                    <div class="col-sm-offset-5 col-sm-3 btn-submit">  
-                      <button type="submit" class="btn btn-success">Sign In</button>  
+                    <div class="col-md-12">  
+                      
+                        <button type="submit" class="btn btn-success">Sign In</button> 
+                      <a href="<?php echo base_url(); ?>" class="btn btn-warning">Back</a>
+                      
                     </div>  
                   </div>  
                 </div>  

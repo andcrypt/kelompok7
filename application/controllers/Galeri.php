@@ -27,6 +27,9 @@ class Galeri extends CI_Controller {
 
 	public function index()
 	{
+		if($this->session->userdata('level') != 1){
+			$this->db->where('id_user',$this->session->userdata('id_user'));
+		}
 		$data['galeri'] = $this->db->get('galeri')->result_array();
 		$this->load->view('user/header');
 		$this->load->view('user/galeri',$data);

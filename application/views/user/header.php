@@ -125,7 +125,7 @@
                     <li class="header">Menu OK EVENT</li>
 
                     <li class="active">
-                        <a href="<?php echo base_url().'admin' ?>">
+                        <a href="<?php echo base_url().'user' ?>">
                              <i class="material-icons">layers</i>
                             <span>Home</span>
                         </a>

@@ -44,6 +44,8 @@ class Homepage extends CI_Controller {
 	}
 	public function pesan($id)
 	{
-		$this->load->view('homepage/pesan');
+		$this->db->select("event.*,(select nama_kategori from kategori where id_kategori=event.id_kategori) as kategori");
+		$data['event'] = $this->db->where('id_event',$id)->get('event')->result()[0];
+		$this->load->view('homepage/pesan',$data);
 	}
 }

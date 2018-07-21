@@ -82,12 +82,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <!-- <li><a href="#team" class="scroll">Team</a></li> -->
                                     <li><a href="#mail" class="scroll">Contact Us</a></li>
                                     
-                                    <li class="active"><a href="<?php echo base_url('homepage/registrasi') ?>">Registration</a></li>
+                                    
                                     <?php if ($this->session->userdata('logged_in') == null): ?>
-
+                                        <li class="active"><a href="<?php echo base_url('homepage/registrasi') ?>">Registration</a></li>
                                         <li class="active"><a href="<?php echo base_url('homepage/login') ?>">Login</a></li>
                                     <?php else: ?>
-
+                                        <li class="active"><a href="<?php echo base_url('user') ?>">Dashboard</a></li>
                                         <li class="active"><a href="<?php echo base_url('user/logout') ?>">Logout</a></li>
                                     <?php endif ?>
                                 </ul>
@@ -200,7 +200,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <?php foreach ($galeri as $key => $value): ?>
                     <div class="col-sm-3 w3_tab_img_left">
                         <div class="demo">
-                            <a class="cm-overlay" href="<?php echo base_url('homepage/pesan/'.$value['id_galeri']) ?>">
+                            <a class="cm-overlay" href="<?php echo base_url() ?>assets/images/<?php echo $value['gambar'] ?>">
                               <figure class="imghvr-shutter-in-out-diag-2">
                                 <img src="<?php echo base_url() ?>assets/images/<?php echo $value['gambar'] ?>" alt=" " class="img-responsive" width=500 height=500/>
                             </figure>

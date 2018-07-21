@@ -67,7 +67,16 @@
                       <input type="password" class="form-control" id="cn-pswd" name="passwordkonfrim" placeholder="Confirm Password" required="">  
                       <span class="text-danger"><?php echo form_error('passwordkonfrim'); ?></span>  
                     </div>  
-                </div>  
+                </div> 
+                <div class="form-group">  
+                  <label class="control-label" for="pswd">Role</label>  
+                    <div>  
+                      <select class="form-control" name="level">
+                        <option value="2">Eo</option>
+                        <option value="3">Member</option>
+                      </select>
+                    </div>  
+                </div> 
                 <div class="form-group">   
                   <div class="row">  
                     <div class="col-sm-offset-5 col-sm-3 btn-submit">  

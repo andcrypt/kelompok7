@@ -21,6 +21,7 @@
         'username' => $this->input->post('username'),
         'email' => $this->input->post('email'),
         'password' => $enc_password,
+        'level' => $this->input->post('level'),
        
     );
 
